@@ -1,0 +1,61 @@
+.split-screen {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+.half-screen {
+    flex: 1; 
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: white;
+    text-align: center;
+}
+
+.image1 {
+    background-image: url('https://cdn.prod.website-files.com/61db45ac0b81e69d6d60044d/6734a05dbfaa76e574af93f0_un%CC%83as-para-noviembre-2024-carey.webp'); 
+    background-size: cover;
+    background-position: center;
+}
+
+.image2 {
+    background-image: url('https://cdn.prod.website-files.com/61db45ac0b81e69d6d60044d/67d44c9dce25276ca5193bab_peinados%20para%20fiesta%20de%20noche%20y%20dia%20(1).webp'); 
+    background-size: cover;
+    background-position: center;
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5); 
+    border-radius: 8px;
+}
+.content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+}
+.content p {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #ffd096;
+    color: rgb(51, 51, 51);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}

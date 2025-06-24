@@ -1,0 +1,65 @@
+.reservas-container {
+    text-align: center;
+    margin: 20px;
+}
+
+.titulo {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    letter-spacing: 0.7em;
+    font-weight: 300;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 300px);
+    grid-gap: 20px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.grid-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.tratamiento-img {
+    width: 15em;
+    height:15em;;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.tratamiento-nombre {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #333;
+    margin: 10px 0;
+}
+
+.tratamiento-info {
+    font-size: 1rem;
+    color: #666;
+}
+.reservar-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.reservar-btn:hover {
+    background-color: #464646;
+}

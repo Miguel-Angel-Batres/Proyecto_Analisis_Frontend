@@ -1,0 +1,57 @@
+
+.contact-section{
+    width: 100vw;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: "Caveat", cursive;
+    
+}
+.contact-section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #333;
+    font-weight: 300;
+}
+.google-map {
+    width: 100vw;
+    height: 40vh;
+    
+}
+.contact-columns{
+    display: flex;
+    flex-direction: row;
+   justify-content: space-around;
+    width: 100%;
+}
+.column h3{
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+.column p {
+    font-size: 1.5rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+form{
+    display: flex;
+    flex-direction: column;
+}
+input, textarea {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+.column button {
+    padding: 10px 20px;
+    font-size: 2rem;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
