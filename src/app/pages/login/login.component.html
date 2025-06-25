@@ -1,0 +1,25 @@
+<div class="background">
+    <div class="contenedor">
+        @if(!isLoading){
+        <form class="bg-white p-4 rounded shadow">
+            <h2 class="text-center mb-4">Login</h2>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="email" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" name="password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+        }
+        @if(isLoading){
+        <div class="text-center">
+            <p>Loading backend, please wait...</p>
+        </div>
+        }
+    </div>
+    
+</div>
+

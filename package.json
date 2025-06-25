@@ -17,10 +17,13 @@
     "@angular/platform-browser": "^19.2.0",
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/router": "^19.2.0",
+    "@tsparticles/angular": "^3.0.0",
+    "@tsparticles/engine": "^3.8.1",
     "boostrap": "^2.0.0",
     "bootstrap": "^5.3.7",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "tsparticles": "^3.8.1",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
