@@ -7,10 +7,14 @@ import { ModelosComponent } from '../../sections/modelos/modelos.component';
 
 @Component({
   selector: 'app-landing',
-  imports: [LogoComponent,ReservasComponent,PresentacionComponent,ContactoComponent,ModelosComponent],
+  imports: [
+    LogoComponent,
+    ReservasComponent,
+    PresentacionComponent,
+    ContactoComponent,
+    ModelosComponent,
+  ],
   templateUrl: './landing.component.html',
-  styleUrl: './landing.component.css'
+  styleUrl: './landing.component.css',
 })
-export class LandingComponent {
-
-}
+export class LandingComponent {}

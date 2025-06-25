@@ -1,0 +1,143 @@
+<div class="container bg-white py-4">
+  <form
+    [formGroup]="reservationForm"
+    (ngSubmit)="onSubmit()"
+    class="max-w-xl mx-auto space-y-6 p-6 bg-white rounded shadow"
+  >
+    <!-- Usuario ID -->
+    <div>
+      <label for="usuarioId" class="block mb-1 font-semibold">Usuario</label>
+      <input
+        id="usuarioId"
+        type="text"
+        formControlName="usuarioId"
+        class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:border-blue-500"
+      />
+      @if (reservationForm.get('usuarioId')?.touched &&
+      reservationForm.get('usuarioId')?.invalid) {
+      <p class="text-red-500 text-sm mt-1">El usuario es obligatorio.</p>
+      }
+    </div>
+
+    <!-- Fecha -->
+    <div>
+      <label for="fecha" class="block mb-1 font-semibold">Fecha</label>
+      <input
+        id="fecha"
+        type="date"
+        formControlName="fecha"
+        class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:border-blue-500"
+      />
+      @if (reservationForm.get('fecha')?.touched &&
+      reservationForm.get('fecha')?.invalid) {
+      <p class="text-red-500 text-sm mt-1">La fecha es obligatoria.</p>
+      }
+    </div>
+
+    <!-- Hora -->
+    <div>
+      <label for="hora" class="block mb-1 font-semibold">Hora</label>
+      <input
+        id="hora"
+        type="time"
+        formControlName="hora"
+        class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:border-blue-500"
+      />
+      @if (reservationForm.get('hora')?.touched &&
+      reservationForm.get('hora')?.invalid) {
+      <p class="text-red-500 text-sm mt-1">La hora es obligatoria.</p>
+      }
+    </div>
+
+    <!-- Servicios -->
+    <div>
+      <label for="servicios" class="block mb-1 font-semibold">Servicio</label>
+      <input
+        id="servicios"
+        type="text"
+        formControlName="servicios"
+        class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:border-blue-500"
+      />
+      @if (reservationForm.get('servicios')?.touched &&
+      reservationForm.get('servicios')?.invalid) {
+      <p class="text-red-500 text-sm mt-1">El servicio es obligatorio.</p>
+      }
+    </div>
+
+    <!-- Duración -->
+    <div>
+      <label for="duracion" class="block mb-1 font-semibold"
+        >Duración (min)</label
+      >
+      <input
+        id="duracion"
+        type="number"
+        formControlName="duracion"
+        class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:border-blue-500"
+      />
+      @if (reservationForm.get('duracion')?.touched &&
+      reservationForm.get('duracion')?.invalid) {
+      <p class="text-red-500 text-sm mt-1">Duración mínima de 1 minuto.</p>
+      }
+    </div>
+
+    <!-- Precio Total -->
+    <div>
+      <label for="precioTotal" class="block mb-1 font-semibold"
+        >Precio Total</label
+      >
+      <input
+        id="precioTotal"
+        type="number"
+        formControlName="precioTotal"
+        class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:border-blue-500"
+      />
+      @if (reservationForm.get('precioTotal')?.touched &&
+      reservationForm.get('precioTotal')?.invalid) {
+      <p class="text-red-500 text-sm mt-1">
+        El precio debe ser mayor o igual a 0.
+      </p>
+      }
+    </div>
+
+    <!-- Estado -->
+    <div>
+      <label for="estado" class="block mb-1 font-semibold">Estado</label>
+      <select
+        id="estado"
+        formControlName="estado"
+        class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:border-blue-500"
+      >
+        <option value="pending">Pendiente</option>
+        <option value="confirmed">Confirmado</option>
+        <option value="cancelled">Cancelado</option>
+      </select>
+      @if (reservationForm.get('estado')?.touched &&
+      reservationForm.get('estado')?.invalid) {
+      <p class="text-red-500 text-sm mt-1">Selecciona un estado válido.</p>
+      }
+    </div>
+
+    <!-- Notas -->
+    <div>
+      <label for="notas" class="block mb-1 font-semibold"
+        >Notas (opcional)</label
+      >
+      <textarea
+        id="notas"
+        formControlName="notas"
+        rows="3"
+        class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring focus:border-blue-500"
+      ></textarea>
+    </div>
+
+    <!-- Botón -->
+    <button
+      type="submit"
+      [disabled]="reservationForm.invalid"
+      class="w-full bg-black text-white py-2 rounded hover:bg-gray-800 transition duration-200 disabled:opacity-50"
+    >
+      Guardar Reservación
+    </button>
+  </form>
+</div>

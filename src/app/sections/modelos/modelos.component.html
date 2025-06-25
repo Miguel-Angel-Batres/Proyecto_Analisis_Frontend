@@ -1,16 +1,41 @@
-<div class="split-screen">
-    <div class="half-screen image1">
-        <div class="content">
-            <h2 class="roboto-mono">Uñas</h2>
-            <p class="caveat">Ofrecemos servicios personalizados para el cuidado de tus uñas.</p>
-            <button class="roboto-mono">Más Información</button>
-        </div>
+<div class="flex flex-col md:flex-row h-screen">
+  <!-- Lado Maquillaje -->
+  <div
+    class="w-full md:w-1/2 h-1/2 md:h-full bg-cover bg-center flex items-center justify-center"
+    style="
+      background-image: url('https://cdn.pixabay.com/photo/2024/10/01/02/09/cosmetics-9086984_1280.jpg');
+    "
+  >
+    <div class="bg-white/40 p-8 rounded-lg text-center max-w-md">
+      <h2 class="text-3xl font-roboto-mono mb-4">Maquillaje</h2>
+      <p class="text-lg font-caveat mb-6">
+        Ofrecemos servicios personalizados de maquillaje para cada ocasión.
+      </p>
+      <button
+        class="px-6 py-2 bg-black text-white font-roboto-mono rounded hover:bg-gray-800 transition"
+      >
+        Más Información
+      </button>
     </div>
-    <div class="half-screen image2">
-        <div class="content">
-            <h2 class="roboto-mono">Peinados</h2>
-            <p class="caveat">Descubre los mejores estilos y peinados para ti.</p>
-            <button class="roboto-mono">Ver Servicios</button>
-        </div>
+  </div>
+
+  <!-- Lado Peinados -->
+  <div
+    class="w-full md:w-1/2 h-1/2 md:h-full bg-cover bg-center flex items-center justify-center"
+    style="
+      background-image: url('https://cdn.prod.website-files.com/61db45ac0b81e69d6d60044d/67d44c9dce25276ca5193bab_peinados%20para%20fiesta%20de%20noche%20y%20dia%20(1).webp');
+    "
+  >
+    <div class="bg-white/70 bg-opacity-70 p-8 rounded-lg text-center max-w-md">
+      <h2 class="text-3xl font-roboto-mono mb-4">Peinados</h2>
+      <p class="text-lg font-caveat mb-6">
+        Descubre los mejores estilos y peinados para ti.
+      </p>
+      <button
+        class="px-6 py-2 bg-black text-white font-roboto-mono rounded hover:bg-gray-800 transition"
+      >
+        Ver Servicios
+      </button>
     </div>
+  </div>
 </div>

@@ -1,18 +1,54 @@
-<nav class="navbar">
-    <div class="container d-flex justify-content-center">
-        <ul class="navbar-nav d-flex flex-row " style="gap:5rem;">
-            <li class="nav-item">
-                <a href="/home" class="nav-link roboto-mono fs-4">Home</a>
-            </li>
-            <li class="nav-item">
-                <a href="/services" class="nav-link roboto-mono fs-4">Services</a>
-            </li>
-            <li class="nav-item">
-                <a href="/about" class="nav-link roboto-mono fs-4">About</a>
-            </li>
-            <li class="nav-item">
-                <a href="/contact" class="nav-link roboto-mono fs-4">Contact</a>
-            </li>
-        </ul>
+<nav class="w-full sticky top-0 z-50 bg-primary-color">
+  <div class="flex items-center justify-between max-w-7xl mx-auto px-6 py-3">
+    <!-- Logo -->
+    <div class="flex items-center">
+      <img
+        src="assets/logo.png"
+        alt="Logo"
+        class="h-14 w-14 object-cover rounded-full"
+      />
     </div>
+
+    <!-- Navegación central -->
+    <div class="flex justify-center items-center gap-12">
+      <a
+        routerLink="/"
+        routerLinkActive="underline"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="text-lg no-underline text-black font-serif tracking-wide hover:underline underline-offset-4 transition duration-200"
+      >
+        Home
+      </a>
+      <a
+        routerLink="/services"
+        routerLinkActive="underline"
+        class="text-lg no-underline text-black font-serif tracking-wide hover:underline underline-offset-4 transition duration-200"
+      >
+        Servicios
+      </a>
+      <a
+        routerLink="/about"
+        routerLinkActive="underline"
+        class="text-lg no-underline text-black font-serif tracking-wide hover:underline underline-offset-4 transition duration-200"
+      >
+        Nosotros
+      </a>
+      <a
+        routerLink="/reservations"
+        routerLinkActive="underline"
+        class="text-lg no-underline text-black font-serif tracking-wide hover:underline underline-offset-4 transition duration-200"
+      >
+        Resevaciones
+      </a>
+    </div>
+
+    <!-- Botón de login -->
+    <a
+      routerLink="/login"
+      class="flex items-center gap-2 text-black hover:text-gray-700 transition duration-200"
+    >
+      <fa-icon [icon]="faCircleUser" class="text-2xl" />
+      <span class="text-lg font-medium">Entrar</span>
+    </a>
+  </div>
 </nav>
