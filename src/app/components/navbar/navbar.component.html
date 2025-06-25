@@ -16,11 +16,46 @@
             </li>
         </ul>
         <div class="profile-icon">
+            @if(isLoggedIn){
+            <div class="dropdown">
+                <a class="nav-link dropdown-toggle" style="gap: 10px; display: flex; justify-content: center; align-items: center;" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    @if(userPhoto){
+                    <img [src]="userPhoto" alt="User Photo" style="width: 40px; height: 40px; border-radius: 50%;" />
+                    <span class="roboto-mono">{{userName}}</span>
+                    }
+                    @else {
+                    <span class="material-symbols-outlined">
+                        account_circle
+                    </span>
+                    <span class="roboto-mono">{{userName}}</span>
+                    }
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="profileDropdown" style="background-color: #fff1d2; color: #000;">
+                    <li>
+                        <a class="dropdown-item" routerLink="/profile" style="color: #000;" 
+                           onmouseover="this.style.backgroundColor='#ffe4a1';" 
+                           onmouseout="this.style.backgroundColor='#fff1d2';">
+                           Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" (click)="logout()" style="color: #000;" 
+                           onmouseover="this.style.backgroundColor='#ffe4a1';" 
+                           onmouseout="this.style.backgroundColor='#fff1d2';">
+                           Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            }
+            @if(!isLoggedIn){
             <a routerLink="/login" class="nav-link">
                 <span class="material-symbols-outlined">
                     account_circle
                 </span>
             </a>
+            }
         </div>
     </div>
 </nav>
