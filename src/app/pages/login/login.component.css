@@ -1,0 +1,83 @@
+.background {
+    background: linear-gradient(90deg, rgba(255,218,107,1) 0%, rgba(255,166,249,1) 50%, rgba(255,241,117,1) 100%);
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 0;
+  }
+  
+.background::before {
+    content: "";
+    position: absolute;
+    top: 20%;
+    left: 5%;
+    width: 100px;
+    height: 100px;
+    transform: rotate(45deg);
+    box-shadow: 200px 200px rgba(255, 255, 255, 0.4),
+                100px -100px rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.background::after {
+    content: "";
+    position: absolute;
+    top: 30%;
+    right: 5%;
+    width: 200px;
+    height: 200px;
+    transform: rotate(45deg);
+    box-shadow: -200px -100px rgba(255, 255, 255, 0.4),
+                100px 300px rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+    z-index: 1;
+}
+  .contenedor{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 500px;
+    margin: 0 auto;   
+    font-family: 'Caveat', sans-serif;
+
+  }
+  .contenedor form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .contenedor form div{
+    padding: 10px 50px;
+    width: 100%;
+  }
+ form button{
+    padding: 10px 20px;
+    font-size: 2rem;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    
+     
+  }
+    .contenedor input{
+        border: none;
+        border-bottom: 1px solid #000;
+        height: 50px;
+        font-size: 1.2rem;
+        font-family: 'roboto-mono', monospace;
+    }
+    .contenedor label{
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+    .contenedor p{
+        font-size: 2rem;
+    }
