@@ -1,44 +1,107 @@
 <section class="parallax-container">
-    <div class="parallax-background" [ngStyle]="{ transform: 'translateY(' + offset + 'px)' }"></div>
-    <div class="appnavbar">
-      <app-navbar></app-navbar>
-    </div> 
-    <div class="parallax-content">
-      <h1 class="title">Catálogo de Servicios</h1>
+  <div
+    class="parallax-background"
+    [ngStyle]="{ transform: 'translateY(' + offset + 'px)' }"
+  ></div>
+  <div class="appnavbar">
+    <app-navbar></app-navbar>
+  </div>
+  <div class="parallax-content">
+    <h1 class="title">Catálogo de Servicios</h1>
+  </div>
+</section>
+
+<div class="catalogo-container">
+  <div class="tabla">
+    <div class="tabs">
+      <button (click)="tab = 'todos'" [class.active]="tab === 'todos'">
+        Todos
+      </button>
+      <button (click)="tab = 'peinados'" [class.active]="tab === 'peinados'">
+        Peinados
+      </button>
+      <button (click)="tab = 'uñas'" [class.active]="tab === 'uñas'">
+        Uñas
+      </button>
     </div>
-  </section>
-  
-  
-  <div class="catalogo-container">
-    <div class="tabla">
-        <div class="tabs">
-            <button (click)="tab = 'todos'" [class.active]="tab === 'todos'">Todos</button>
-            <button (click)="tab = 'peinados'" [class.active]="tab === 'peinados'">Peinados</button>
-            <button (click)="tab = 'uñas'" [class.active]="tab === 'uñas'">Uñas</button>
-          </div>
-          <div class="servicios-grid">
-            @for(servicio of serviciosFiltrados(); track servicio.nombre) {
-              <div class="servicio-item">
-              <div class="imagen"></div>
-                  <img [src]="'https://hips.hearstapps.com/hmg-prod/images/peinados-tendencia-2024-02-65b00644c0053.jpg'" alt="{{ servicio.nombre }}" />
-                  <!-- boton reservar -->
-                  <button class="btn btn-primary" (click)="reservarServicio(servicio)">Reservar</button>
-                </div>
-                <div class="descripcion">
-                  <h3>{{ servicio.nombre }}</h3>
-                  <p>{{ servicio.tipo }}</p>
-                </div>
-                <div class="precio">
-                  ${{ servicio.precio }}
-                </div>
-              </div>
+    <div class="servicios-grid">
+      @for(servicio of serviciosFiltrados(); track servicio.nombre) {
+      <div class="servicio-item">
+        <div class="imagen">
+          <img
+            [src]="
+              'https://hips.hearstapps.com/hmg-prod/images/peinados-tendencia-2024-02-65b00644c0053.jpg'
+            "
+            alt="{{ servicio.nombre }}"
+          />
+          <div class="botones">
+            @if (isAdmin) { @if (!servicioEditando || servicioEditando !==
+            servicio) {
+            <button
+              class="btn btn-secondary"
+              (click)="servicioEditando = servicio"
+            >
+              Editar
+            </button>
+            <button
+              class="btn btn-danger"
+              (click)="deleteServicio(servicio)"
+            >
+              Eliminar
+            </button>
+            }@else{
+            <button
+              class="btn btn-success"
+              (click)="guardarEdicion(servicio); servicioEditando = null"
+            >
+              Guardar
+            </button>
+            <button
+              class="btn btn-danger"
+              (click)="cancelarEdicion(servicio); servicioEditando = null"
+            >
+              Cancelar
+            </button>
+            } }@else{
+            <button class="btn btn-danger" (click)="reservarServicio(servicio)">
+              Reservar
+            </button>
             }
           </div>
+        </div>
+        <div class="descripcion">
+          @if (!servicioEditando || servicioEditando !== servicio) {
+          <h3>{{ servicio.nombre }}</h3>
+          <p>{{ servicio.tipo }}</p>
+          } @else {
+          <input [(ngModel)]="servicio.nombre" />
+          <input [(ngModel)]="servicio.tipo" />
+          }
+        </div>
+        <div class="precio">
+          @if (!servicioEditando || servicioEditando !== servicio) {
+          <span>${{ servicio.precio }}</span>
+          } @else {
+          <input type="number" [(ngModel)]="servicio.precio" />
+          }
+        </div>
+      </div>
+      }
     </div>
+    @if(isAdmin) {
+    <div  style="display: flex; justify-content: center;align-items: center;  padding-top: 35px;">
+      <button class="btn btn-primary" (click)="agregarServicio()">
+      Agregar Servicio
+      </button>
+    </div>
+    }
   </div>
-  <section class="parallax-container" id="parallax2">
-    <div class="parallax-background" [ngStyle]="{ transform: 'translateY(' + (-offset2) + 'px)' }"></div>
-    <div class="parallax-content">
-    </div>
-  </section>
-  <app-footer></app-footer>
+</div>
+<section class="parallax-container" id="parallax2">
+  <div
+    class="parallax-background"
+    [ngStyle]="{ transform: 'translateY(' + -offset2 + 'px)' }"
+  ></div>
+  <div class="parallax-content"></div>
+</section>
+<app-footer></app-footer>
