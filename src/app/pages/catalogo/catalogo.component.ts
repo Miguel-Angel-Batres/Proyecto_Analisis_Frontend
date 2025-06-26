@@ -118,22 +118,19 @@ serviciosFiltrados() {
               if (index !== null) {
                 this.serviciosSeleccionados.splice(parseInt(index, 10), 1);
                 Swal.close();
-                this.mostrarSwalReservacion();  // recarga con la nueva lista
+                this.mostrarSwalReservacion();  
               }
             });
           });
         }
       }).then((result) => {
         if (result.isConfirmed) {
-          // enviar a reservacion
           this.router.navigate(['/reservacion'], {
             state: {
               servicios: this.serviciosSeleccionados,
               total: this.getTotal()
             }
           });
-          // limpia seleccionados si quieres:
-          // this.serviciosSeleccionados = [];
         } else if (result.isDenied) {
           this.mostrarSwalAgregar();
         } else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -143,7 +140,6 @@ serviciosFiltrados() {
     }
   
     mostrarSwalAgregar(): void {
-      // solo servicios no elegidos
       const disponibles = this.servicios.filter(s => 
         !this.serviciosSeleccionados.some(sel => sel.nombre === s.nombre)
       );
