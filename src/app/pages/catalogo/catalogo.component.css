@@ -1,0 +1,151 @@
+.parallax-container {
+    position: relative;
+    height: 80vh;
+    overflow: hidden;
+  }
+  #parallax2 .parallax-background {
+        background-image: url('../../../assets/img/fondo2.png');
+
+  }
+  .parallax-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150%;
+    background-image: url('../../../assets/img/fondo1.png');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    transition: transform 0.1s ease-out;
+  }
+  
+  .parallax-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 70%;
+  }
+
+  .appnavbar {
+    padding: 1rem;
+    background-color: #ffdf9b;
+  }
+
+  .parallax-content h1 {
+    align-self: center;
+  }
+  .parallax-content .title{
+    border-bottom: 1px solid #000000;
+
+  }
+.tabla {
+    position: absolute;
+    width: 50%;
+    top: -30%;
+    padding: 2rem;
+    background-color: #ffdf9b;
+
+}
+.catalogo-container {
+    width: 100%;
+    min-height: 100vh;
+    overflow: visible;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+ 
+  
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tabs button {
+    padding: 10px 20px;
+    margin: 0 5px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s, color 0.3s;
+}
+
+.tabs button.active {
+    border-bottom: 2px solid #000000;
+}
+
+.tabs button:hover {
+    border-bottom: 2px solid #000000;
+}
+
+.servicios-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .servicio-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    align-items: center;
+    text-align: center;
+    background: #ffe8b5;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  .servicio-item .imagen {
+    position: relative;
+    height: 100%;
+    width: 250px;
+  }
+
+  .servicio-item .imagen img {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    object-fit: cover;
+  }
+
+  .servicio-item .imagen button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20%;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    border: none;
+    border-radius: 0 0 6px 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s;
+  }
+
+  .servicio-item .imagen button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  .descripcion h3 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+  
+  .descripcion p {
+    margin: 0;
+    color: #666;
+  }
+  
+  .precio {
+    font-weight: bold;
+    font-size: 1.1rem;
+  }

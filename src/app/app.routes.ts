@@ -2,10 +2,13 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import { SigninComponent } from './pages/signin/signin.component';
+import { CatalogoComponent } from './pages/catalogo/catalogo.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'landing', pathMatch: 'full' }, 
+    { path: 'home', redirectTo: 'landing', pathMatch: 'full' },
     { path: 'landing', component: LandingComponent }, 
     { path: 'login', component: LoginComponent }, 
-    { path: 'signup',component: SigninComponent}
+    { path: 'signup',component: SigninComponent},
+    { path: 'services',component: CatalogoComponent}
 ];

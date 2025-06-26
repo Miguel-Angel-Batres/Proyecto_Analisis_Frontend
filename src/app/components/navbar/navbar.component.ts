@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,7 +14,7 @@ export class NavbarComponent {
   userPhoto: string | null = '';
   isLoggedIn: boolean = false;
 
-  constructor() {
+  constructor(private route: Router) {
    
   }
   ngOnInit() {
@@ -43,4 +43,19 @@ export class NavbarComponent {
       text: 'You have been logged out successfully.',
     });
   }
+  irASeccion(seccionId: string): void {
+    const currentUrl = this.route.url.split('#')[0];
+
+    if (currentUrl.includes('landing')) {
+      this.route.navigate([], { fragment: seccionId }).then(() => {
+        const el = document.getElementById(seccionId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    } else {
+      this.route.navigate(['/home'], { fragment: seccionId });
+    }
+  }
 }
+
