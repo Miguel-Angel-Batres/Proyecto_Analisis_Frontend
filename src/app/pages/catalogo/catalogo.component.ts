@@ -260,7 +260,7 @@ serviciosFiltrados() {
     }
   
     getTotal(): number {
-      return this.serviciosSeleccionados.reduce((acc, s) => acc + s.precio, 0);
+      return this.serviciosSeleccionados.reduce((acumulador, servicio) => acumulador + Number(servicio.precio), 0);
     }
     guardarEdicion(servicioEditado: any): void {
       const index = this.servicios.findIndex(s => s.id === servicioEditado.id);

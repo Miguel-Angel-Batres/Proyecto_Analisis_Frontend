@@ -35,6 +35,8 @@
 
   .parallax-content h1 {
     align-self: center;
+    font-family: "Caveat", cursive;
+    font-size: 4rem;
   }
   .parallax-content .title{
     border-bottom: 1px solid #000000;
@@ -74,6 +76,9 @@
     cursor: pointer;
     border-bottom: 2px solid transparent;
     transition: border-color 0.3s, color 0.3s;
+    font-family: "roboto-mono", sans-serif;
+    letter-spacing: 0.7em;
+
 }
 
 .tabs button.active {
@@ -143,7 +148,8 @@
   
   .descripcion h3 {
     margin: 0;
-    font-size: 1.1rem;
+    font-size: 2rem;
+    font-family: "caveat", cursive;
   }
   
   .descripcion p {
@@ -154,4 +160,6 @@
   .precio {
     font-weight: bold;
     font-size: 1.1rem;
+    font-family: "roboto-mono", sans-serif;
+    
   }

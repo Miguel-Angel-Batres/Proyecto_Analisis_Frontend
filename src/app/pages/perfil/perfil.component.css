@@ -1,0 +1,90 @@
+.profile-container {
+    width: 100vw;
+    height: 80vh;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffe8b7;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+.navbar {
+    background-color: #ffdf9b;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-header .profile-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #007bff;
+    margin-bottom: 10px;
+}
+
+.profile-header h2 {
+    font-size: 24px;
+    color: #333;
+    margin: 10px 0;
+}
+
+.profile-header p {
+    font-size: 16px;
+    color: #555;
+    margin: 5px 0;
+}
+
+.profile-appointments {
+    margin-top: 20px;
+}
+
+.profile-appointments h3 {
+    font-size: 20px;
+    color: #007bff;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #007bff;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.profile-appointments ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.profile-appointments li {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.profile-appointments li:hover {
+    background-color: #f1f1f1;
+}
+
+.profile-appointments p {
+    font-size: 16px;
+    color: #777;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.profile-appointments ng-template p {
+    font-size: 16px;
+    color: #999;
+    text-align: center;
+    margin-top: 20px;
+}
