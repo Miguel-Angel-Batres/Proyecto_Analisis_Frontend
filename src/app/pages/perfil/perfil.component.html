@@ -1,0 +1,78 @@
+<div class="navbar">
+    <app-navbar></app-navbar>
+</div>
+@if(usuario.rol === 'admin') {
+    <div class="profile-container">
+        <div class="profile-header">
+            <img [src]="'data:image/jpeg;base64,' + usuario.profilePicture" alt="Profile Picture" class="profile-picture">
+            <h2>{{ usuario.name }}</h2>
+            <p>Teléfono: {{ usuario.phone }}</p>
+            <p>Email: {{ usuario.email }}</p>
+        </div>
+        <div class="profile-appointments">
+            @if(citas && citas.length > 0) {
+                <h3>Citas</h3>
+    
+            <div >
+                <ul>
+                    @for(cita of citas; track cita.id) {
+                    <li >
+                        {{ cita }}
+                    </li>
+                    }
+                </ul>
+            </div>
+            }@else {
+                <p>No tienes citas por recibir</p>
+            }
+             
+        </div>
+        <div class="profile-appointments">
+            @if(pagos && pagos.length > 0) {
+                <h3>Pagos</h3>
+    
+            <div >
+                <ul>
+                    @for(pago of pagos; track pago.id) {
+                    <li >
+                        {{ pago }}
+                    </li>
+                    }
+                </ul>
+            </div>
+            }@else {
+                <p>No tienes ningun pago</p>
+            }
+        </div>
+    </div>
+} @else {
+    <div class="profile-container">
+        <div class="profile-header">
+            <img [src]="'data:image/jpeg;base64,' + usuario.profilePicture" alt="Profile Picture" class="profile-picture">
+            <h2>{{ usuario.name }}</h2>
+            <p>Teléfono: {{ usuario.phone }}</p>
+            <p>Email: {{ usuario.email }}</p>
+        </div>
+        <div class="profile-appointments">
+            @if(usuario.citas && usuario.citas.length > 0) {
+                <h3>Citas</h3>
+    
+            <div >
+                <ul>
+                    @for(cita of usuario.citas; track cita) {
+                    <li >
+                        {{ cita }}
+                    </li>
+                    }
+                </ul>
+            </div>
+            }@else {
+                <p>No tienes citas programadas.</p>
+            }
+             
+        </div>
+    </div>
+}
+
+
+<app-footer></app-footer>
