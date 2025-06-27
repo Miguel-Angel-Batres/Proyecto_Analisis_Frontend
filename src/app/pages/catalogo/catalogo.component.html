@@ -1,0 +1,51 @@
+<section class="parallax-container">
+  <div class="parallax-content">
+    <h1 class="title">Catálogo de Servicios</h1>
+  </div>
+</section>
+
+<div class="catalogo-container bg-white">
+  <div class="tabla">
+    <div class="tabs">
+      <button (click)="tab = 'todos'" [class.active]="tab === 'todos'">
+        Todos
+      </button>
+      <button (click)="tab = 'peinados'" [class.active]="tab === 'peinados'">
+        Peinados
+      </button>
+      <button (click)="tab = 'uñas'" [class.active]="tab === 'uñas'">
+        Uñas
+      </button>
+    </div>
+    <div class="servicios-grid">
+      @for(servicio of serviciosFiltrados(); track servicio.nombre) {
+      <div class="servicio-item">
+        <div class="imagen"></div>
+        <img
+          [src]="
+            'https://hips.hearstapps.com/hmg-prod/images/peinados-tendencia-2024-02-65b00644c0053.jpg'
+          "
+          alt="{{ servicio.nombre }}"
+        />
+        <!-- boton reservar -->
+        <button class="btn btn-primary" (click)="reservarServicio(servicio)">
+          Reservar
+        </button>
+      </div>
+      <div class="descripcion">
+        <h3>{{ servicio.nombre }}</h3>
+        <p>{{ servicio.tipo }}</p>
+      </div>
+      <div class="precio">${{ servicio.precio }}</div>
+      }
+    </div>
+  </div>
+</div>
+<section class="parallax-container" id="parallax2">
+  <div
+    class="parallax-background"
+    [ngStyle]="{ transform: 'translateY(' + -offset2 + 'px)' }"
+  ></div>
+  <div class="parallax-content"></div>
+</section>
+<app-footer></app-footer>
