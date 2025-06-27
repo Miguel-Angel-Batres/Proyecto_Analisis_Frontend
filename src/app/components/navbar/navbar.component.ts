@@ -41,6 +41,8 @@ export class NavbarComponent {
       icon: 'success',
       title: 'Logout Successful',
       text: 'You have been logged out successfully.',
+    }).then(() => {
+      location.reload();
     });
   }
   irASeccion(seccionId: string): void {

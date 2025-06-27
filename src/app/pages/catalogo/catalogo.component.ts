@@ -5,15 +5,10 @@ import { FooterComponent } from '../../components/footer/footer.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
-import { noop } from 'rxjs';
 import { FormsModule } from '@angular/forms';
-interface Servicio {
-  nombre: string;
-  tipo: string;
-  precio: number;
-  imagen: string;
-  id: number;
-}
+import { HttpClient } from '@angular/common/http';
+import { ServiciosService } from '../../servicios.service';
+
 
 @Component({
   selector: 'app-catalogo',
@@ -23,22 +18,52 @@ interface Servicio {
 })
 
 export class CatalogoComponent {
-  isAdmin: boolean = true;
-  constructor(private router: Router) {}
+  isAdmin: boolean = false;
+  backendCargando: boolean = true; 
+  constructor(private router: Router, private http: HttpClient, private serviciosService: ServiciosService) {}
   tab: string = 'todos'; 
-  servicios: Servicio[] = [
-    { id: 1, nombre: 'Corte en capas', tipo: 'peinados', precio: 250, imagen: 'assets/images/corte_en_capas.jpg' },
-    { id: 2, nombre: 'Manicure básico', tipo: 'uñas', precio: 180, imagen: 'assets/images/manicure_basico.jpg' },
-    { id: 3, nombre: 'Tinte completo', tipo: 'peinados', precio: 500, imagen: 'assets/images/tinte_completo.jpg' },
-    { id: 4, nombre: 'Acrílicas', tipo: 'uñas', precio: 300, imagen: 'assets/images/acrilicas.jpg' },
-  ];
+  servicios: any[] = [];
+  categorias: any[] = ['peinados', 'uñas', 'facial'];
 
-serviciosSeleccionados: Servicio[] = [];
-servicioEditando : Servicio | null = null;
+serviciosSeleccionados: any[] = [];
+servicioEditando: any = null;
+ngOnInit() {
+  this.verificarBackend();
+  this.cargarServicios();
+  // checar parametro rol en user de localstorage, si es admin, isAdmin sera true
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  if (user && user.rol === 'admin') {
+    this.isAdmin = true;
+  } else {
+    this.isAdmin = false;
+  }
 
+}
+verificarBackend() {
+    this.http.get('http://localhost:3000/start', { responseType: 'text' }).subscribe(
+      (response) => {
+        console.log('Backend iniciado:', response);
+        this.backendCargando = false; 
+      },
+      (error) => {
+        console.error('Error al iniciar el backend:', error);
+      }
+    );  
+  }
+cargarServicios() {
+    this.http.get<any[]>('http://localhost:3000/servicios').subscribe(
+      (data) => {
+        this.servicios = data;
+        console.log('Servicios cargados:', this.servicios);
+      },
+      (error) => {
+        console.error('Error al cargar los servicios:', error);
+      }
+    );
+  }
 serviciosFiltrados() {
     if (this.tab === 'todos') return this.servicios;
-    return this.servicios.filter(s => s.tipo === this.tab);
+    return this.servicios.filter(s => s.categoria === this.tab);
   }
   offset = 0;
   offset2 = 0;
@@ -82,54 +107,74 @@ serviciosFiltrados() {
     Swal.fire({
       title: 'Agregar Servicio',
       html: `
-        <input type="text" id="nombre" class="swal2-input" placeholder
-        ="Nombre del servicio">
-        <input type="text" id="tipo" class="swal2-input" placeholder
-        ="Tipo de servicio (peinados, uñas, etc.)">
-        <input type="number" id="precio" class="swal2-input" placeholder
-        ="Precio del servicio">
-        <input type="text" id="imagen" class="swal2-input" placeholder
-        ="URL de la imagen">
+        <input type="text" id="nombre" class="swal2-input" placeholder="Nombre del servicio">
+        <input type="text" id="categoria" class="swal2-input" placeholder="Categoría del servicio (peinados, uñas, etc.)">
+        <input type="number" id="precio" class="swal2-input" placeholder="Precio del servicio">
+        <input type="number" id="duracion" class="swal2-input" placeholder="Duración del servicio (en minutos)">
+        <input type="file" id="imagen" class="swal2-file" accept="image/*">
+        <textarea id="descripcion" class="swal2-textarea" placeholder="Descripción del servicio"></textarea>
       `,
       focusConfirm: false,
       preConfirm: () => {
-        const nombre = (document.getElementById('nombre') as HTMLInputElement).value
-        const tipo = (document.getElementById('tipo') as HTMLInputElement).value;
-        const precio = parseFloat((document.getElementById('precio') as HTMLInputElement
-        ).value);
-        const imagen = (document.getElementById('imagen') as HTMLInputElement).value
-        if (!nombre || !tipo || isNaN(precio) || !imagen) {
+        const nombre = (document.getElementById('nombre') as HTMLInputElement).value;
+        const categoria = (document.getElementById('categoria') as HTMLInputElement).value;
+        const precio = parseFloat((document.getElementById('precio') as HTMLInputElement).value);
+        const duracion = parseInt((document.getElementById('duracion') as HTMLInputElement).value, 10);
+        const imagenInput = document.getElementById('imagen') as HTMLInputElement;
+        const imagen = imagenInput.files ? imagenInput.files[0] : null;
+        const descripcion = (document.getElementById('descripcion') as HTMLTextAreaElement).value;
+
+        if (!nombre || !categoria || isNaN(precio) || isNaN(duracion) || !imagen || !descripcion) {
           Swal.showValidationMessage('Por favor completa todos los campos');
           return;
         }
-        return { nombre, tipo, precio, imagen };
+        return { nombre, categoria, precio, duracion, imagen, descripcion };
       }
     }).then((result) => {
       if (result.isConfirmed && result.value) {
-        const nuevoServicio: Servicio = {
-          id: this.servicios.length + 1,
-          nombre: result.value.nombre,
-          tipo: result.value.tipo,
-          precio: result.value.precio,
-          imagen: result.value.imagen
-        };
-        this.servicios.push(nuevoServicio);
-        Swal.fire('Servicio agregado', '', 'success');
+        const formData = new FormData();
+        formData.append('nombre', result.value.nombre);
+        formData.append('categoria', result.value.categoria);
+        formData.append('precio', result.value.precio.toString());
+        formData.append('duracion', result.value.duracion.toString());
+        formData.append('imagen', result.value.imagen);
+        formData.append('descripcion', result.value.descripcion);
+
+        this.http.post<any>('http://localhost:3000/servicios', formData).subscribe({
+          next: (nuevoServicio) => {
+            this.servicios.push(nuevoServicio);
+            Swal.fire('Servicio agregado', '', 'success');
+          },
+          error: (error) => {
+            console.error('Error al agregar el servicio:', error);
+            Swal.fire('Error al agregar el servicio', '', 'error');
+          }
+        });
       }
     });
-   }
-
+  }
 
   
-    reservarServicio(servicio: Servicio): void {
-      // añadir si no está ya seleccionado
-      if (!this.serviciosSeleccionados.some(s => s.nombre === servicio.nombre)) {
-        this.serviciosSeleccionados.push(servicio);
+    reservarServicio(servicio: any): void {
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      if (!user || !user.rol) {
+      Swal.fire({
+        title: 'No estás logueado',
+        text: 'Por favor inicia sesión para reservar un servicio.',
+        icon: 'warning',
+        confirmButtonText: 'Ir a Login'
+      }).then(() => {
+        this.router.navigate(['/login']);
+      });
+      return;
       }
-  
+
+      if (!this.serviciosSeleccionados.some(s => s.nombre === servicio.nombre)) {
+      this.serviciosSeleccionados.push(servicio);
+      }
+    
       this.mostrarSwalReservacion();
     }
-  
     mostrarSwalReservacion(): void {
       if (this.serviciosSeleccionados.length === 0) {
         Swal.fire('No hay servicios seleccionados', '', 'info');
@@ -167,12 +212,8 @@ serviciosFiltrados() {
         }
       }).then((result) => {
         if (result.isConfirmed) {
-          this.router.navigate(['/reservacion'], {
-            state: {
-              servicios: this.serviciosSeleccionados,
-              total: this.getTotal()
-            }
-          });
+          this.serviciosService.setDatos(this.serviciosSeleccionados, this.getTotal());
+          this.router.navigate(['/reservacion']);
         } else if (result.isDenied) {
           this.mostrarSwalAgregar();
         } else if (result.dismiss === Swal.DismissReason.cancel) {
@@ -221,62 +262,97 @@ serviciosFiltrados() {
     getTotal(): number {
       return this.serviciosSeleccionados.reduce((acc, s) => acc + s.precio, 0);
     }
-    guardarEdicion(servicio: Servicio): void {
+    guardarEdicion(servicioEditado: any): void {
+      const index = this.servicios.findIndex(s => s.id === servicioEditado.id);
+      if (index !== -1) {
+        this.http.put<any>(`http://localhost:3000/servicios/${servicioEditado.id}`, servicioEditado).subscribe(
+          (servicioActualizado) => {
+            this.servicios[index] = { ...servicioActualizado }; 
+            this.servicioEditando = null;
+            Swal.fire('Servicio actualizado', '', 'success');
+          },
+          (error) => {
+            console.error('Error al actualizar el servicio:', error);
+            Swal.fire('Error al actualizar el servicio', '', 'error');
+          }
+        );
+      }
+    }
+    editarServicio(servicio: any): void {
+      this.servicioEditando = { ...servicio };
+      console.log('Servicio editando:', this.servicioEditando);
+    }
+    cancelarEdicion(servicio: any): void {
       if (this.servicioEditando) {
       const index = this.servicios.findIndex(s => s.id === this.servicioEditando!.id);
       if (index !== -1) {
         this.servicios[index] = servicio;
       }
       this.servicioEditando = null;
-      } else {
-      this.servicios.push(servicio);
       }
     }
-    cancelarEdicion(servicio: Servicio): void {
-      if (this.servicioEditando) {
-      const index = this.servicios.findIndex(s => s.id === this.servicioEditando!.id);
-      if (index !== -1) {
-        this.servicios[index] = servicio;
-      }
-      this.servicioEditando = null;
-      }
-    }
-    deleteServicio(servicio: Servicio): void {
+
+    deleteServicio(servicio: any): void {
       Swal.fire({
-        title: '¿Estás seguro?',
-        text: `¿Quieres eliminar el servicio "${servicio.nombre}"?`,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Sí, eliminar',
-        cancelButtonText: 'Cancelar'
+      title: '¿Estás seguro?',
+      text: `¿Quieres eliminar el servicio "${servicio.nombre}"?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
       }).then((result) => {
-        if (result.isConfirmed) {
+      if (result.isConfirmed) {
+        this.http.delete(`http://localhost:3000/servicios/${servicio.id}`).subscribe(
+        () => {
           this.servicios = this.servicios.filter(s => s.id !== servicio.id);
           Swal.fire('Servicio eliminado', '', 'success');
+        },
+        (error) => {
+          console.error('Error al eliminar el servicio:', error);
+          Swal.fire('Error al eliminar el servicio', '', 'error');
         }
+        );
+      }
       });
     }
-    editarImagen(servicio: Servicio): void {
+
+    cambiarImagen(servicio: any): void {
       Swal.fire({
-      title: 'Editar Imagen',
-      html: `
-        <input type="text" id="imagen" class="swal2-input" placeholder="URL de la imagen" value="${servicio.imagen}">
-      `,
-      focusConfirm: false,
-      preConfirm: () => {
-        const imagen = (document.getElementById('imagen') as HTMLInputElement).value;
-        
-        if (!imagen) {
-        Swal.showValidationMessage('Por favor ingresa la URL de la imagen');
-        return;
+        title: 'Editar Imagen',
+        html: `
+          <input type="file" id="imagen" class="swal2-file" accept="image/*">
+        `,
+        focusConfirm: false,
+        preConfirm: () => {
+          const imagenInput = document.getElementById('imagen') as HTMLInputElement;
+          const imagen = imagenInput.files ? imagenInput.files[0] : null;
+    
+          if (!imagen) {
+            Swal.showValidationMessage('Por favor selecciona una imagen');
+            return;
+          }
+    
+          return { imagen };
         }
-        
-        return { imagen };
-      }
       }).then((result) => {
-      if (result.isConfirmed && result.value) {
-        servicio.imagen = result.value.imagen;
-      }
+        if (result.isConfirmed && result.value) {
+          const formData = new FormData();
+          formData.append('imagen', result.value.imagen);
+    
+          this.http.put<any>(`http://localhost:3000/servicios/${servicio.id}/imagen`, formData).subscribe(
+            (servicioActualizado) => {
+              const index = this.servicios.findIndex(s => s.id === servicio.id);
+              if (index !== -1) {
+                this.servicios[index] = { ...servicioActualizado }; 
+              }
+              Swal.fire('Imagen actualizada', '', 'success');
+            },
+            (error) => {
+              console.error('Error al actualizar la imagen:', error);
+              Swal.fire('Error al actualizar la imagen', '', 'error');
+            }
+          );
+        }
       });
     }
 

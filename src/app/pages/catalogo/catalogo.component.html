@@ -14,33 +14,50 @@
 <div class="catalogo-container">
   <div class="tabla">
     <div class="tabs">
-      <button (click)="tab = 'todos'" [class.active]="tab === 'todos'">
-        Todos
+      <button 
+      (click)="tab = 'todos'" 
+      [class.active]="tab === 'todos'">
+      Todos
       </button>
-      <button (click)="tab = 'peinados'" [class.active]="tab === 'peinados'">
-        Peinados
+      @for(categoria of categorias; track categoria) {
+      <button 
+      (click)="tab = categoria" 
+      [class.active]="tab === categoria">
+      {{ categoria }}
       </button>
-      <button (click)="tab = 'uñas'" [class.active]="tab === 'uñas'">
-        Uñas
-      </button>
+      }
     </div>
+    @if(backendCargando) {
+    <div class="servicio-item" style="align-items: center; padding:20px; justify-content: center; display: flex; text-align: center;">
+      <p style="margin: 0 auto;">Cargando backend</p>
+    </div>
+    } @else {
     <div class="servicios-grid">
-      @for(servicio of serviciosFiltrados(); track servicio.nombre) {
+      @for(servicio of serviciosFiltrados(); track servicio.id) {
       <div class="servicio-item">
         <div class="imagen">
-          <img
-            [src]="
-              'https://hips.hearstapps.com/hmg-prod/images/peinados-tendencia-2024-02-65b00644c0053.jpg'
-            "
-            alt="{{ servicio.nombre }}"
-          />
-          <div class="botones">
-            @if (isAdmin) { @if (!servicioEditando || servicioEditando !==
-            servicio) {
+            <div class="imagen-container" style="position: relative;">
+              <img
+              [src]="servicio.imagen !== 'undefined' ? 'data:image/jpeg;base64,' + servicio.imagen : '/images/default.jpg'"
+              alt="{{ servicio.nombre }}"
+              />
+              @if(isAdmin && servicioEditando && servicioEditando.id === servicio.id) {
+              <button
+              class="btn btn-secondary"
+              style="position: absolute; top: 10px; right: 10px;"
+              (click)="cambiarImagen(servicio)"
+              >
+              Cambiar Imagen
+              </button>
+             }
+            </div>
+            <div class="botones">
+            @if (isAdmin) { @if (!servicioEditando || servicioEditando.id !==
+            servicio.id) {
             <button
               class="btn btn-secondary"
-              (click)="servicioEditando = servicio"
-            >
+              (click)="editarServicio(servicio)"
+              >
               Editar
             </button>
             <button
@@ -52,7 +69,7 @@
             }@else{
             <button
               class="btn btn-success"
-              (click)="guardarEdicion(servicio); servicioEditando = null"
+              (click)="guardarEdicion(servicioEditando); servicioEditando = null"
             >
               Guardar
             </button>
@@ -70,19 +87,19 @@
           </div>
         </div>
         <div class="descripcion">
-          @if (!servicioEditando || servicioEditando !== servicio) {
-          <h3>{{ servicio.nombre }}</h3>
-          <p>{{ servicio.tipo }}</p>
+          @if (!servicioEditando || servicioEditando.id !== servicio.id) {
+            <h3>{{ servicio.nombre }}</h3>
+            <p>{{ servicio.descripcion }}</p>
           } @else {
-          <input [(ngModel)]="servicio.nombre" />
-          <input [(ngModel)]="servicio.tipo" />
+            <input [(ngModel)]="servicioEditando.nombre" placeholder="Nombre del servicio" />
+            <input [(ngModel)]="servicioEditando.descripcion" placeholder="Descripción del servicio" />
           }
         </div>
         <div class="precio">
-          @if (!servicioEditando || servicioEditando !== servicio) {
-          <span>${{ servicio.precio }}</span>
+          @if (!servicioEditando || servicioEditando.id !== servicio.id) {
+            <span>${{ servicio.precio }}</span>
           } @else {
-          <input type="number" [(ngModel)]="servicio.precio" />
+            <input type="number" [(ngModel)]="servicioEditando.precio" placeholder="Precio del servicio" />
           }
         </div>
       </div>
@@ -90,11 +107,12 @@
     </div>
     @if(isAdmin) {
     <div  style="display: flex; justify-content: center;align-items: center;  padding-top: 35px;">
-      <button class="btn btn-primary" (click)="agregarServicio()">
+      <button class="btn btn-primary" style="background-color: rgba(0, 0, 0, 0.8); border-style: none;" (click)="agregarServicio()">
       Agregar Servicio
       </button>
     </div>
     }
+  } 
   </div>
 </div>
 <section class="parallax-container" id="parallax2">
