@@ -1,8 +1,58 @@
 <app-navbar></app-navbar>
 <!-- primero un form de fecha -->
+<app-navbar></app-navbar>
+
+<div class="form-container">
+  <h2>Registrar Nueva Cita</h2>
+
+  <form (ngSubmit)="registrarCita()" #citaForm="ngForm">
+    <label for="servicios">Servicios</label>
+    <input type="text" id="servicios" name="servicios" [(ngModel)]="cita.servicios" readonly />
+
+    <label for="precioTotal">Total ($)</label>
+    <input type="number" id="precioTotal" name="precioTotal" [(ngModel)]="cita.precioTotal" readonly />
+
+    <label for="fecha">Fecha</label>
+    <input type="date" id="fecha" name="fecha" [(ngModel)]="cita.fecha" required />
+
+    <label for="hora">Hora</label>
+    <input type="time" id="hora" name="hora" [(ngModel)]="cita.hora" required />
+
+    <button type="submit">Registrar Cita</button>
+  </form>
+</div>
+
+<app-footer></app-footer>
+
 
 <!-- .... -->
 
 <!-- luego un form de pago, tarjeta, etc.. -->
+
+<div class="form-container">
+  <h2>Datos de Pago</h2>
+
+  <form (ngSubmit)="procesarPago()" #pagoForm="ngForm">
+    <label for="titular">Titular de la Tarjeta</label>
+    <input type="text" id="titular" name="titular" [(ngModel)]="pago.titular" required />
+
+    <label for="numero">Número de Tarjeta</label>
+    <input type="text" id="numero" name="numero" [(ngModel)]="pago.numero" maxlength="19" pattern="[0-9 ]*" required placeholder="1234 5678 9012 3456" />
+
+    <div class="row">
+      <div class="col">
+        <label for="exp">Fecha de Expiración</label>
+        <input type="text" id="exp" name="exp" [(ngModel)]="pago.exp" placeholder="MM/AA" maxlength="5" required />
+      </div>
+      <div class="col">
+        <label for="cvv">CVV</label>
+        <input type="text" id="cvv" name="cvv" [(ngModel)]="pago.cvv" maxlength="4" required />
+      </div>
+    </div>
+
+    <button type="submit">Pagar</button>
+  </form>
+</div>
+
 
 <app-footer></app-footer>
