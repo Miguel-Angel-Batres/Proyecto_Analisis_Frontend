@@ -69,7 +69,7 @@ export class ReservacionComponent implements OnInit {
   procesarPago() {
    
     
-    this.http.post('http://localhost:3000/citas', this.citaAEnviar).subscribe({
+    this.http.post('https://proyecto-analisis-backend.onrender.com/citas', this.citaAEnviar).subscribe({
       next: (res: any) => {
       this.serviciosService.clearDatos();
       const pagoAEnviar = {
@@ -86,7 +86,7 @@ export class ReservacionComponent implements OnInit {
         alert('Todos los campos de pago son obligatorios.');
         return;
       }
-      this.http.post('http://localhost:3000/pagos', pagoAEnviar).subscribe({
+      this.http.post('https://proyecto-analisis-backend.onrender.com/pagos', pagoAEnviar).subscribe({
         next: (res: any) => {
           Swal.fire({
             icon: 'success',

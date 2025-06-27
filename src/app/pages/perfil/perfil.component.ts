@@ -26,7 +26,7 @@ export class PerfilComponent {
         
     }
     ngOnInit(): void {
-        
+
         if(this.usuario.rol !== 'admin'){
             this.obtenerCitasUsuario();
         }else{
@@ -35,7 +35,7 @@ export class PerfilComponent {
         }
     }
     obtenerCitas(): void {
-        this.http.get(`http://localhost:3000/citas`).subscribe({
+        this.http.get(`https://proyecto-analisis-backend.onrender.com/citas`).subscribe({
             next: (res: any) => {
                 this.citas = res;
                 console.log('Citas obtenidas:', this.citas);
@@ -46,7 +46,7 @@ export class PerfilComponent {
         });
     }
     obtenerPagos(): void {
-        this.http.get(`http://localhost:3000/pagos`).subscribe({
+        this.http.get(`https://proyecto-analisis-backend.onrender.com/pagos`).subscribe({
             next: (res: any) => {
                 this.pagos = res;
                 console.log('Pagos obtenidos:', this.pagos);
@@ -58,7 +58,7 @@ export class PerfilComponent {
     }
     obtenerCitasUsuario(): void {
        // obtener citas del usuario
-        this.http.get(`http://localhost:3000/citas?usuarioId=${this.usuario
+        this.http.get(`https://proyecto-analisis-backend.onrender.com/citas?usuarioId=${this.usuario
             .id}`).subscribe({
             next: (res: any) => {
                 this.citas = res;
@@ -70,7 +70,7 @@ export class PerfilComponent {
         }); 
     }
     borrarCita(citaId: number): void {
-        this.http.delete(`http://localhost:3000/citas/${citaId}`).subscribe({
+        this.http.delete(`https://proyecto-analisis-backend.onrender.com/citas/${citaId}`).subscribe({
             next: (res: any) => {
                 this.citas = this.citas.filter(cita => cita.id !== citaId);
                 Swal.fire({

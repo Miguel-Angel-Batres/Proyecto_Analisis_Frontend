@@ -32,7 +32,7 @@ export class SigninComponent {
   async checkAndStartBackend(): Promise<boolean> {
     this.isLoading = true; 
     try {
-      const response = await this.http.get('http://localhost:3000/start', { responseType: 'text' }).toPromise();
+      const response = await this.http.get('https://proyecto-analisis-backend.onrender.com/start', { responseType: 'text' }).toPromise();
       console.log('Backend response:', response);
       return true;
     } catch (error) {
@@ -59,7 +59,7 @@ export class SigninComponent {
       formDataToSend.append('profilePicture', this.formData.profilePicture); // Agrega el archivo
     }
   
-    this.http.post('http://localhost:3000/usuarios', formDataToSend).subscribe(
+    this.http.post('https://proyecto-analisis-backend.onrender.com/usuarios', formDataToSend).subscribe(
       response => {
         Swal.fire({
           icon: 'success',

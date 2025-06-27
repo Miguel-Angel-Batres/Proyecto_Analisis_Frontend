@@ -28,7 +28,7 @@ export class LoginComponent {
   async checkAndStartBackend(): Promise<boolean> {
     this.isLoading = true; 
     try {
-      const response = await this.http.get('http://localhost:3000/start', { responseType: 'text' }).toPromise();
+      const response = await this.http.get('https://proyecto-analisis-backend.onrender.com/start', { responseType: 'text' }).toPromise();
       console.log('Backend response:', response);
       return true;
     } catch (error) {
@@ -46,7 +46,7 @@ export class LoginComponent {
   
     this.isLoading = true;
   
-    this.http.post('http://localhost:3000/login', loginData).subscribe(
+    this.http.post('https://proyecto-analisis-backend.onrender.com/login', loginData).subscribe(
       (response: any) => {
         console.log('Login successful:', response);
   

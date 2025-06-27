@@ -40,7 +40,7 @@ ngOnInit() {
 
 }
 verificarBackend() {
-    this.http.get('http://localhost:3000/start', { responseType: 'text' }).subscribe(
+    this.http.get('https://proyecto-analisis-backend.onrender.com/start', { responseType: 'text' }).subscribe(
       (response) => {
         console.log('Backend iniciado:', response);
         this.backendCargando = false; 
@@ -51,7 +51,7 @@ verificarBackend() {
     );  
   }
 cargarServicios() {
-    this.http.get<any[]>('http://localhost:3000/servicios').subscribe(
+    this.http.get<any[]>('https://proyecto-analisis-backend.onrender.com/servicios').subscribe(
       (data) => {
         this.servicios = data;
         console.log('Servicios cargados:', this.servicios);
@@ -140,7 +140,7 @@ serviciosFiltrados() {
         formData.append('imagen', result.value.imagen);
         formData.append('descripcion', result.value.descripcion);
 
-        this.http.post<any>('http://localhost:3000/servicios', formData).subscribe({
+        this.http.post<any>('https://proyecto-analisis-backend.onrender.com/servicios', formData).subscribe({
           next: (nuevoServicio) => {
             this.servicios.push(nuevoServicio);
             Swal.fire('Servicio agregado', '', 'success');
@@ -265,7 +265,7 @@ serviciosFiltrados() {
     guardarEdicion(servicioEditado: any): void {
       const index = this.servicios.findIndex(s => s.id === servicioEditado.id);
       if (index !== -1) {
-        this.http.put<any>(`http://localhost:3000/servicios/${servicioEditado.id}`, servicioEditado).subscribe(
+        this.http.put<any>(`https://proyecto-analisis-backend.onrender.com/servicios/${servicioEditado.id}`, servicioEditado).subscribe(
           (servicioActualizado) => {
             this.servicios[index] = { ...servicioActualizado }; 
             this.servicioEditando = null;
@@ -302,7 +302,7 @@ serviciosFiltrados() {
       cancelButtonText: 'Cancelar'
       }).then((result) => {
       if (result.isConfirmed) {
-        this.http.delete(`http://localhost:3000/servicios/${servicio.id}`).subscribe(
+        this.http.delete(`https://proyecto-analisis-backend.onrender.com/servicios/${servicio.id}`).subscribe(
         () => {
           this.servicios = this.servicios.filter(s => s.id !== servicio.id);
           Swal.fire('Servicio eliminado', '', 'success');
@@ -339,7 +339,7 @@ serviciosFiltrados() {
           const formData = new FormData();
           formData.append('imagen', result.value.imagen);
     
-          this.http.put<any>(`http://localhost:3000/servicios/${servicio.id}/imagen`, formData).subscribe(
+          this.http.put<any>(`https://proyecto-analisis-backend.onrender.com/servicios/${servicio.id}/imagen`, formData).subscribe(
             (servicioActualizado) => {
               const index = this.servicios.findIndex(s => s.id === servicio.id);
               if (index !== -1) {
