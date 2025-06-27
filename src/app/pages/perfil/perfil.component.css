@@ -1,6 +1,6 @@
 .profile-container {
     width: 100vw;
-    height: 80vh;
+    min-height: 80vh;
     margin: 0 auto;
     padding: 20px;
     background-color: #ffe8b7;
@@ -39,7 +39,12 @@
 }
 
 .profile-appointments {
-    margin-top: 20px;
+    display: flex;    
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 10% ;
+
 }
 
 .profile-appointments h3 {
@@ -62,7 +67,6 @@
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 10px;
-    margin-bottom: 10px;
     font-size: 16px;
     color: #333;
     display: flex;

@@ -11,21 +11,28 @@
         </div>
         <div class="profile-appointments">
             @if(citas && citas.length > 0) {
-                <h3>Citas</h3>
-    
-            <div >
-                <ul>
-                    @for(cita of citas; track cita.id) {
-                    <li >
-                        {{ cita }}
-                    </li>
-                    }
-                </ul>
+            <h3 class="text-primary">Citas</h3>
+            <div class="row">
+            @for(cita of citas; track cita) {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                <div class="card-header text-center">
+                    <h4>Cita del {{ cita.fecha }}</h4>
+                </div>
+                <div class="card-body">
+                    <p><strong>Duración:</strong> {{ cita.duracion }} minutos</p>
+                    <p><strong>Precio Total:</strong> {{ cita.precioTotal }} USD</p>
+                </div>
+                <div class="card-footer text-center">
+                    <button (click)="borrarCita(cita.id)" class="btn btn-danger">Borrar</button>
+                </div>
+                </div>
             </div>
-            }@else {
-                <p>No tienes citas por recibir</p>
+              } 
+             </div>
+             } @else {
+            <p>No tienes citas programadas.</p>
             }
-             
         </div>
         <div class="profile-appointments">
             @if(pagos && pagos.length > 0) {
@@ -35,8 +42,14 @@
                 <ul>
                     @for(pago of pagos; track pago.id) {
                     <li >
-                        {{ pago }}
-                    </li>
+                        <div class="row">
+                            <div class="col-md-4"><strong>Titular:</strong> {{ pago.tarjeta?.titular }}</div>
+                            <div class="col-md-4"><strong>Monto:</strong> {{ pago.monto }} USD</div>
+                            <div class="col-md-4"><strong>ID:</strong> {{ pago.id }}</div>
+                            <!-- monto -->
+                            <div class="col-md-4"><strong>Usuario ID:</strong> {{ pago.usuarioId }}</div>
+                            <div class="col-md-4"><strong>Cita ID:</strong> {{ pago.citaId }}</div>
+                        </div>
                     }
                 </ul>
             </div>
@@ -54,22 +67,44 @@
             <p>Email: {{ usuario.email }}</p>
         </div>
         <div class="profile-appointments">
-            @if(usuario.citas && usuario.citas.length > 0) {
-                <h3>Citas</h3>
-    
-            <div >
-                <ul>
-                    @for(cita of usuario.citas; track cita) {
-                    <li >
-                        {{ cita }}
-                    </li>
-                    }
-                </ul>
+            @if(citas && citas.length > 0) {
+            <h3 class="text-primary">Citas</h3>
+            @for(cita of citas; track cita){
+            <div style="text-align: center;">
+                <h4>Cita del {{ cita.fecha }}</h4>
+                <div style="background-color: white; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px;">
+                    <p><strong>Duración:</strong> {{ cita.duracion }} minutos</p>
+                    <p><strong>Precio Total:</strong> {{ cita.precioTotal }} USD</p>
+                    <button (click)="borrarCita(cita.id)" class="btn btn-danger">Borrar</button>
+                </div>
+                <h5>Servicios</h5>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Duración</th>
+                            <th>Categoría</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(servicio of cita.servicios; track servicio.id) {
+                        <tr>
+                            <td>{{ servicio.nombre }}</td>
+                            <td>{{ servicio.descripcion }}</td>
+                            <td>{{ servicio.precio }} USD</td>
+                            <td>{{ servicio.duracion }} minutos</td>
+                            <td>{{ servicio.categoria }}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
-            }@else {
-                <p>No tienes citas programadas.</p>
+            }} @else {
+            <p>No tienes citas programadas.</p>
             }
-             
+    
         </div>
     </div>
 }
